@@ -1,4 +1,6 @@
 import uuid
+import pymysql
+import pymysql.cursors
 from datetime import datetime
 from flask import (
   Flask,
@@ -13,8 +15,15 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 users = []
 messages = dict()
-# hold all msg ids in order
 chat = []
+
+def db_excute(sql):
+  connection = pymysql.connect(host='127.0.0.1', port=8889, user='root', passwd='root', db='rf_chat_room', cursorclass=pymysql.cursors.DictCursor)
+  cursor = connection.cursor()
+  cursor.execute(sql)
+  connection.commit()
+  cursor.close()
+  connection.close()
 
 @app.route('/')
 def index():
@@ -22,6 +31,8 @@ def index():
 
 @app.route('/hello')
 def hello():
+  sql = ("INSERT INTO `rf_chat_room`.`users` (`name`, `email`) VALUES ('test name', 'test@name.com')")
+  db_excute(sql)
   return '1 World!'
 
 @app.route('/login', methods=['POST'])
