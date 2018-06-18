@@ -3,11 +3,12 @@ const path = require('path');
 const config = {
     entry:  __dirname + '/js/index.jsx',
     output: {
-        path: __dirname + '/dist',
-        filename: 'bundle.js',
+      path: __dirname + '/dist',
+      filename: 'bundle.js',
+      publicPath: __dirname + '/js',
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.css']
+      extensions: ['.js', '.jsx', '.css']
     },
     module: {
       rules: [

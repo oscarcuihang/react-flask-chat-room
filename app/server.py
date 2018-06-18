@@ -9,6 +9,8 @@ from flask import (
 )
 
 app = Flask(__name__, static_folder='../static/dist', template_folder='../static')
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 users = []
 messages = dict()
 # hold all msg ids in order
@@ -16,11 +18,11 @@ chat = []
 
 @app.route('/')
 def index():
-  return render_template("index.html")
+  return render_template('index.html')
 
-@app.route("/hello")
+@app.route('/hello')
 def hello():
-  return 'Hello World!'
+  return '1 World!'
 
 @app.route('/login', methods=['POST'])
 def login():
